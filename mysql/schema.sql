@@ -59,7 +59,7 @@ CREATE TABLE `skillboxdb`.`users_to_discussion_groups` (
     `group_id` INT UNSIGNED NOT NULL,
     `joined_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `approved` BOOL NOT NULL,
-    `approved_time` TIMESTAMP NOT NULL,
+    `approved_time` TIMESTAMP,
     KEY `joined_time`(`joined_time`),
     FOREIGN KEY (`user_id`)
         REFERENCES `skillboxdb`.`user`(`user_id`)
