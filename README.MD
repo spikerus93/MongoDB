@@ -8,4 +8,4 @@ cd ./generator
 # E.g. upload dump to mysql
 mysql < data.sql
 ```
-New
+New Project
