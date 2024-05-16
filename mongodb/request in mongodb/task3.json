@@ -1,0 +1,68 @@
+
+> db.users.createIndex({"first_name" : 1, "last_name" : 1})
+{
+  "createdCollectionAutomatically" : false,
+  "numIndexesBefore" : 1,
+  "numIndexesAfter" : 2,
+  "ok" : 1
+}
+
+> db.users.find().limit(1)
+{ "_id" : "vjaniya@example.ru", "first_name" : "Vinnie", "last_name" : "Janiya", "registration_date" : ISODate("2021-09-11T00:00:00Z"), "birth_date" : ISODate("1909-04-06T00:00:00Z"), "visits" : 645, "top_tags" : { "was" : 9, "as" : 1, "alice" : 8, "on" : 1, "own" : 8, "a" : 9 }, "karma" : -43 }
+
+> db.users.find({"first_name" : "Vinnie", "last_name" : "Janiya"}).explain()
+{
+  "waitedMS" : NumberLong(0),
+  "queryPlanner" : {
+    "plannerVersion" : 1,
+    "namespace" : "mongodb.users",
+    "indexFilterSet" : false,
+    "parsedQuery" : {
+      "$and" : [
+        {
+          "first_name" : {
+            "$eq" : "Vinnie"
+          }
+        },
+        {
+          "last_name" : {
+            "$eq" : "Janiya"
+          }
+        }
+      ]
+    },
+    "winningPlan" : {
+      "stage" : "FETCH",
+      "inputStage" : {
+        "stage" : "IXSCAN",
+        "keyPattern" : {
+          "first_name" : 1,
+          "last_name" : 1
+        },
+        "indexName" : "first_name_1_last_name_1",
+        "isMultiKey" : false,
+        "isUnique" : false,
+        "isSparse" : false,
+        "isPartial" : false,
+        "indexVersion" : 1,
+        "direction" : "forward",
+        "indexBounds" : {
+          "first_name" : [
+            "[\"Vinnie\", \"Vinnie\"]"
+          ],
+          "last_name" : [
+            "[\"Janiya\", \"Janiya\"]"
+          ]
+        }
+      }
+    },
+    "rejectedPlans" : [ ]
+  },
+  "serverInfo" : {
+    "host" : "e7bed4e4a211",
+    "port" : 27017,
+    "version" : "3.1.9",
+    "gitVersion" : "9c317d92145a77ab582acb215b3ed41af2f1b33c"
+  },
+  "ok" : 1
+}
