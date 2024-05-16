@@ -1,0 +1,12 @@
+> db.posts.insertMany([{"creation_date" : new Timestamp(), "author" : "skbx@example.com"}, {"creation_date" : ISODate("2021-12-31T00:00:00Z"), "author" : "skbx@example.ru"}])
+{
+  "acknowledged" : true,
+  "insertedIds" : [
+    ObjectId("664651204f188cceb268911b"),
+    ObjectId("664651204f188cceb268911c")
+  ]
+}
+> db.posts.find({"_id" : ObjectId("664651204f188cceb268911b")})
+{ "_id" : ObjectId("664651204f188cceb268911b"), "creation_date" : Timestamp(1715884320, 1), "author" : "skbx@example.com" }
+> db.posts.find({"_id" : ObjectId("664651204f188cceb268911c")})
+{ "_id" : ObjectId("664651204f188cceb268911c"), "creation_date" : ISODate("2021-12-31T00:00:00Z"), "author" : "skbx@example.ru" }
