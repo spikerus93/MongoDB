@@ -22,28 +22,28 @@
 Type "it" for more
 
 
-> db.users.aggregate([{$match: {"visits" : {$gt: 300}}}, {$project: {karma: "$karma"}}])
-{ "_id" : "vjaniya@example.ru", "karma" : -43 }
-{ "_id" : "lluc@example.info", "karma" : -33 }
-{ "_id" : "byuko@example.com", "karma" : 126 }
-{ "_id" : "mmickey@example.info", "karma" : 80 }
-{ "_id" : "danni@example.com", "karma" : -25 }
-{ "_id" : "pcierra@example.ru", "karma" : -7 }
-{ "_id" : "gshena@example.net", "karma" : 160 }
-{ "_id" : "ljoly@example.ru", "karma" : 117 }
-{ "_id" : "jlangdon@example.ru", "karma" : 171 }
-{ "_id" : "acaty@example.ru", "karma" : 67 }
-{ "_id" : "mayana@example.net", "karma" : 90 }
-{ "_id" : "bfouad@example.com", "karma" : -88 }
-{ "_id" : "pkarlene@example.ru", "karma" : 101 }
-{ "_id" : "kyukinobu@example.com", "karma" : 153 }
-{ "_id" : "lprudy@example.ru", "karma" : 159 }
-{ "_id" : "mbelvia@example.ru", "karma" : 15 }
-{ "_id" : "rdaphine@example.com", "karma" : 119 }
-{ "_id" : "jathene@example.ru", "karma" : -58 }
-{ "_id" : "jcolleen@example.info", "karma" : 106 }
-{ "_id" : "memiliano@example.ru", "karma" : 138 }
-Type "it" for more
+> db.users.aggregate([{$match: {"visits" : {$gt: 300}}}, {$project: {karma: "$karma", first_name: "$first_name", fn_One: {$substr: ["$first_name",0,1]}}}])
+{ "_id" : "mmickey@example.info", "first_name" : "Mamie", "karma" : 80, "fn_One" : "M" }
+{ "_id" : "byuko@example.com", "first_name" : "Babita", "karma" : 126, "fn_One" : "B" }
+{ "_id" : "lluc@example.info", "first_name" : "Leny", "karma" : -33, "fn_One" : "L" }
+{ "_id" : "danni@example.com", "first_name" : "Deandra", "karma" : -25, "fn_One" : "D" }
+{ "_id" : "bfouad@example.com", "first_name" : "Building", "karma" : -88, "fn_One" : "B" }
+{ "_id" : "pcierra@example.ru", "first_name" : "Petrina", "karma" : -7, "fn_One" : "P" }
+{ "_id" : "gshena@example.net", "first_name" : "Gemma", "karma" : 160, "fn_One" : "G" }
+{ "_id" : "pkarlene@example.ru", "first_name" : "Pip", "karma" : 101, "fn_One" : "P" }
+{ "_id" : "ljoly@example.ru", "first_name" : "Lydia", "karma" : 117, "fn_One" : "L" }
+{ "_id" : "jlangdon@example.ru", "first_name" : "Jean-Bernard", "karma" : 171, "fn_One" : "J" }
+{ "_id" : "acaty@example.ru", "first_name" : "Alisa", "karma" : 67, "fn_One" : "A" }
+{ "_id" : "mayana@example.net", "first_name" : "Mika", "karma" : 90, "fn_One" : "M" }
+{ "_id" : "kyukinobu@example.com", "first_name" : "Kirstie", "karma" : 153, "fn_One" : "K" }
+{ "_id" : "lprudy@example.ru", "first_name" : "Laverne", "karma" : 159, "fn_One" : "L" }
+{ "_id" : "mbelvia@example.ru", "first_name" : "Marlaine", "karma" : 15, "fn_One" : "M" }
+{ "_id" : "rdaphine@example.com", "first_name" : "Rebekkah", "karma" : 119, "fn_One" : "R" }
+{ "_id" : "jathene@example.ru", "first_name" : "Janey", "karma" : -58, "fn_One" : "J" }
+{ "_id" : "jcolleen@example.info", "first_name" : "Jovan", "karma" : 106, "fn_One" : "J" }
+{ "_id" : "hrodger@example.com", "first_name" : "Hsieh", "karma" : 79, "fn_One" : "H" }
+{ "_id" : "memiliano@example.ru", "first_name" : "Manfred", "karma" : 138, "fn_One" : "M" }
+
 
 
 > db.users.aggregate([{$match: {"visits" : {$gt: 300}}}, {$project: {sum_karma: {$substr: ["$first_name",0,1]}}}])
@@ -68,5 +68,26 @@ Type "it" for more
 { "_id" : "jcolleen@example.info", "sum_karma" : "J" }
 { "_id" : "memiliano@example.ru", "sum_karma" : "M" }
 Type "it" for more
+
+
+> db.users.aggregate([{$match: {"visits" : {$gt: 300}}}, {$project: {id: "$first_name", karma: "$karma", fn_One: {$substr: ["$first_name",0,1]}}}, {$group: {_id: "$fn_One", sum_karma: {$sum: "$karma"}}}])
+{ "_id" : "Z", "sum_karma" : -82 }
+{ "_id" : "T", "sum_karma" : -68 }
+{ "_id" : "S", "sum_karma" : 296 }
+{ "_id" : "V", "sum_karma" : -43 }
+{ "_id" : "E", "sum_karma" : 120 }
+{ "_id" : "H", "sum_karma" : 79 }
+{ "_id" : "M", "sum_karma" : 516 }
+{ "_id" : "D", "sum_karma" : -64 }
+{ "_id" : "L", "sum_karma" : 243 }
+{ "_id" : "C", "sum_karma" : 176 }
+{ "_id" : "O", "sum_karma" : 71 }
+{ "_id" : "B", "sum_karma" : 323 }
+{ "_id" : "P", "sum_karma" : 94 }
+{ "_id" : "K", "sum_karma" : 153 }
+{ "_id" : "G", "sum_karma" : 199 }
+{ "_id" : "A", "sum_karma" : -28 }
+{ "_id" : "J", "sum_karma" : 419 }
+{ "_id" : "R", "sum_karma" : 53 }
 
 
