@@ -19,7 +19,6 @@
 { "_id" : "jathene@example.ru", "first_name" : "Janey", "last_name" : "Athene", "registration_date" : ISODate("2020-04-17T00:00:00Z"), "birth_date" : ISODate("1932-01-10T00:00:00Z"), "visits" : 803, "top_tags" : { "stupid" : 1, "to" : 8, "tired" : 5 }, "karma" : -58 }
 { "_id" : "jcolleen@example.info", "first_name" : "Jovan", "last_name" : "Colleen", "registration_date" : ISODate("2020-02-25T00:00:00Z"), "birth_date" : ISODate("1919-05-15T00:00:00Z"), "visits" : 329, "top_tags" : { "watch" : 1, "remarkable" : 3, "rabbit" : 3, "at" : 5, "as" : 2, "a" : 4 }, "karma" : 106 }
 { "_id" : "memiliano@example.ru", "first_name" : "Manfred", "last_name" : "Emiliano", "registration_date" : ISODate("2020-09-02T00:00:00Z"), "birth_date" : ISODate("1958-12-13T00:00:00Z"), "visits" : 933, "top_tags" : { "it" : 6, "sitting" : 4 }, "karma" : 138 }
-Type "it" for more
 
 
 > db.users.aggregate([{$match: {"visits" : {$gt: 300}}}, {$project: {karma: "$karma", first_name: "$first_name", fn_One: {$substr: ["$first_name",0,1]}}}])
